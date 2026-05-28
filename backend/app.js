@@ -3,11 +3,13 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
+const cors = require("cors");
 
 const app = express();
 
 // config
 require('dotenv').config();
+app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,11 +19,13 @@ const user = require('./routes/userRoute');
 const product = require('./routes/productRoute');
 const order = require('./routes/orderRoute');
 const payment = require('./routes/paymentRoute');
+const notes = require('./routes/noteRoute');
 
 app.use('/api/user', user);
 app.use('/api/product', product);
 app.use('/api/order', order);
 app.use('/api/payment', payment);
+app.use('/notes', notes);
 
 // deployment
 __dirname = path.resolve();
